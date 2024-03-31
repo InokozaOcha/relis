@@ -72,6 +72,18 @@ services:
       - MYSQL_PASSWORD=${DB_PASSWORD:-secret}
       - MYSQL_ROOT_PASSWORD=${DB_PASSWORD:-secret}
 
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin:latest
+    depends_on:
+      - db
+    environment:
+      - PMA_ARBITRARY=1
+      - PMA_HOSTS=db
+      - PMA_USER=${DB_USERNAME:-phper}
+      - PMA_PASSWORD=${DB_PASSWORD:-secret}
+    ports:
+      - "3001:80"
+
   mailpit:
     image: axllent/mailpit
     ports:
